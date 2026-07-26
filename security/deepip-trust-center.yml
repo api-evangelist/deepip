@@ -1,0 +1,26 @@
+generated: '2026-07-18'
+method: searched
+probe: true
+source: https://trust.deepip.ai/
+url: https://trust.deepip.ai/
+certifications:
+- SOC 2 Type II
+- ISO 27001
+- ISO 42001
+- GDPR
+hosting: U.S.-based Microsoft Azure
+data_retention: Zero data retention; customer data is not stored or used for model retraining
+evidence:
+- source: https://trust.deepip.ai/
+  keywords:
+  - soc 2 type ii
+  - iso 27001
+  - trust center
+  - gdpr
+- source: https://www.deepip.ai/
+  keywords:
+  - iso 27001
+  - iso 42001
+  - soc 2 type ii
+  - gdpr
+  - zero data retention

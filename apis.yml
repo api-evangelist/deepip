@@ -1,19 +1,50 @@
 aid: deepip
-name: deepip
-description: deepip is a company surfaced as a portfolio company of balderton-capital and added to the
-  API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+name: DeepIP
+description: >-
+  DeepIP is an AI-powered patent intelligence platform that streamlines the full
+  patent lifecycle for intellectual-property professionals, automating repetitive
+  work while keeping a human in the loop. It supports invention capture,
+  patentability assessment, patent drafting and drawings generation, AI review,
+  prosecution support, freedom-to-operate (FTO) and invalidity searches, portfolio
+  and landscape intelligence, and agentic prior-art search. DeepIP embeds directly
+  into Microsoft Word, IP management systems, and the web browser, and works across
+  chemistry, biology, software, mechanical, and electronic domains and multiple
+  patent jurisdictions (USPTO, EPO, PCT, UKIPO, CNIPA, KIPO, and others). The
+  company operates a zero-data-retention policy on U.S.-based Microsoft Azure and
+  holds SOC 2 Type II, ISO 27001, ISO 42001, and GDPR compliance. DeepIP is backed
+  by Balderton Capital.
 url: https://raw.githubusercontent.com/api-evangelist/deepip/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://cdn.prod.website-files.com/655793df06a490569c80c9da/656dfeb7474277cde1d95475_Webclip.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - balderton-capital
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profile
+x-tier-reason: enriched-no-public-api
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
 tags:
 - Company
+- Intellectual Property
+- Patents
+- Legal Tech
+- Artificial Intelligence
+- Patent Drafting
+- IP Management
+- Document Automation
+- Security
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -23,3 +54,26 @@ maintainers:
 common:
 - type: Website
   url: https://www.deepip.ai/
+- type: Blog
+  url: https://www.deepip.ai/blog
+- type: TrustCenter
+  url: https://trust.deepip.ai/
+- type: Compliance
+  url: https://trust.deepip.ai/
+- type: PrivacyPolicy
+  url: https://www.deepip.ai/privacy-policy
+- type: TermsOfService
+  url: https://www.deepip.ai/terms-and-conditions
+- type: SignUp
+  url: https://www.deepip.ai/trial
+- type: GitHubOrganization
+  url: https://github.com/deepip-ai
+- type: DomainSecurity
+  url: security/deepip-domain-security.yml
+- type: WellKnown
+  url: well-known/deepip-well-known.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

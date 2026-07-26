@@ -1,0 +1,19 @@
+generated: '2026-07-18'
+method: searched
+source: live probes of /.well-known/* on deepip.ai hosts
+host: https://www.deepip.ai
+documents:
+- path: /.well-known/security.txt
+  status: 404
+- path: /.well-known/openid-configuration
+  status: 404
+- path: /.well-known/oauth-authorization-server
+  status: 404
+- path: /.well-known/api-catalog
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404
+notes: >-
+  DeepIP is an end-user AI patent SaaS (Microsoft Word plugin, IPMS embeds, web
+  app) with no public developer API surface. No /.well-known/ discovery documents
+  are published as of the probe date; absence is recorded as valid data.
