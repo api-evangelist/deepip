@@ -1,0 +1,27 @@
+generated: '2026-08-17'
+method: probed
+source: >-
+  live response headers observed on https://app.deepip.ai/mcp and
+  https://app.deepip.ai/.well-known/oauth-authorization-server
+limit_count: 0
+limits: []
+headers: []
+status_on_exhaustion: null
+notes: >-
+  DeepIP publishes no rate limits and signals none at the edge. No RateLimit-*,
+  X-RateLimit-*, or Retry-After header appeared on any anonymous response, and a
+  12-request burst against the authorization-server metadata document returned
+  200 every time with no throttling headers. The API reference at docs.deepip.ai
+  is behind a ReadMe login, so any documented quota could not be read. An honest
+  zero: an agent connecting to the MCP endpoint has no runtime signal telling it
+  how hard it may call.
+evidence:
+- url: https://app.deepip.ai/mcp
+  method: POST
+  status: 401
+  rate_limit_headers: none
+- url: https://app.deepip.ai/.well-known/oauth-authorization-server
+  method: GET
+  status: 200
+  requests: 12
+  rate_limit_headers: none

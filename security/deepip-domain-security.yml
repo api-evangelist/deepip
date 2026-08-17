@@ -1,11 +1,23 @@
-generated: '2026-07-18'
+generated: '2026-08-17'
 method: probed
 source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
 hosts:
 - host: www.deepip.ai
   https: true
   tls_version: TLSv1.3
-  cert_expires: Aug 31 19:43:35 2026 GMT
+  cert_expires: Oct 29 20:15:43 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: docs.deepip.ai
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 12 23:11:09 2026 GMT
+  hsts: true
+  hsts_max_age: 15552000
+- host: app.deepip.ai
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 29 12:14:09 2026 GMT
   hsts: true
   hsts_max_age: 31536000
 domains:

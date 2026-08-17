@@ -1,19 +1,98 @@
-generated: '2026-07-18'
-method: searched
-source: live probes of /.well-known/* on deepip.ai hosts
-host: https://www.deepip.ai
-documents:
-- path: /.well-known/security.txt
-  status: 404
-- path: /.well-known/openid-configuration
-  status: 404
-- path: /.well-known/oauth-authorization-server
-  status: 404
-- path: /.well-known/api-catalog
-  status: 404
-- path: /.well-known/ai-plugin.json
-  status: 404
+generated: '2026-08-17'
+method: probed
+source: live probes of /.well-known/* and /robots.txt on every DeepIP host
 notes: >-
-  DeepIP is an end-user AI patent SaaS (Microsoft Word plugin, IPMS embeds, web
-  app) with no public developer API surface. No /.well-known/ discovery documents
-  are published as of the probe date; absence is recorded as valid data.
+  DeepIP publishes no developer portal on its marketing host, but its application
+  host (app.deepip.ai) serves a real, anonymous OAuth discovery surface for a
+  remote Model Context Protocol server, and its identity host (auth.deepip.ai,
+  an Auth0 tenant) serves full OIDC/OAuth 2.0 authorization-server metadata.
+  Paths on app.deepip.ai that are NOT part of that surface answer 401
+  MISSING_CREDENTIALS from a catch-all bearer-auth middleware — a 401 there is a
+  gate, not a document, and is recorded as a miss (this is why
+  /.well-known/agent-card.json is NOT treated as an A2A hit). The marketing host
+  www.deepip.ai returns a 404 HTML page for every /.well-known/* path.
+hosts:
+- host: https://app.deepip.ai
+  role: application + MCP server
+  documents:
+  - path: /.well-known/oauth-protected-resource/mcp
+    status: 200
+    spec: RFC 9728 OAuth 2.0 Protected Resource Metadata
+    file: deepip-oauth-protected-resource-mcp.json
+    note: names https://app.deepip.ai/mcp as the protected resource
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    spec: RFC 8414 OAuth 2.0 Authorization Server Metadata
+    file: deepip-app-oauth-authorization-server.json
+    note: MCP-scoped authorization server (authorize/token/revoke under /mcp/)
+  - path: /robots.txt
+    status: 200
+    spec: Content Signals (Cloudflare managed) + RFC 9309
+    file: deepip-app-robots.txt
+    note: >-
+      Serves Content-Signal directives (search=yes, ai-train=no, use=reference)
+      and Disallow rules for ClaudeBot, GPTBot, CCBot, Bytespider, Amazonbot,
+      Applebot-Extended, Google-Extended and meta-externalagent. Emitted by
+      Cloudflare's managed-robots feature on DeepIP's own zone.
+  - path: /.well-known/oauth-protected-resource
+    status: 401
+  - path: /.well-known/openid-configuration
+    status: 401
+  - path: /.well-known/security.txt
+    status: 401
+  - path: /.well-known/api-catalog
+    status: 401
+  - path: /.well-known/ai-plugin.json
+    status: 401
+  - path: /.well-known/agent-card.json
+    status: 401
+    note: catch-all auth middleware, not an agent card — NOT an A2A hit
+  - path: /.well-known/agent.json
+    status: 401
+    note: catch-all auth middleware, not an agent card — NOT an A2A hit
+- host: https://auth.deepip.ai
+  role: identity provider (Auth0 tenant)
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    spec: OpenID Connect Discovery 1.0
+    file: deepip-auth-openid-configuration.json
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    spec: RFC 8414
+    note: identical body to the OIDC discovery document
+  - path: /.well-known/jwks.json
+    status: 200
+    note: referenced by the discovery document; not saved (rotating key material)
+- host: https://www.deepip.ai
+  role: marketing site
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+  - path: /robots.txt
+    status: 200
+    note: >-
+      Allow-all with a sitemap reference only; no Content-Signal directives and
+      no AI-crawler rules — the opposite posture from the application host.
+- host: https://trust.deepip.ai
+  role: trust center (Vanta)
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    note: >-
+      200 but the body is the trust-center single-page-app HTML shell, not an
+      RFC 9116 document — recorded as a MISS.

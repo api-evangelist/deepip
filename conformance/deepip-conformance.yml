@@ -1,0 +1,95 @@
+generated: '2026-08-17'
+method: probed
+source: >-
+  https://app.deepip.ai/.well-known/*, https://auth.deepip.ai/.well-known/*,
+  https://www.deepip.ai/security, https://trust.deepip.ai/
+standards:
+- id: oauth2
+  conforms: true
+  evidence: >-
+    RFC 6749 authorization-code flow advertised by both authorization servers
+    (app.deepip.ai/mcp/authorize + auth.deepip.ai/authorize).
+- id: rfc8414-authorization-server-metadata
+  conforms: true
+  evidence: >-
+    https://app.deepip.ai/.well-known/oauth-authorization-server returns 200 with
+    issuer, authorization_endpoint, token_endpoint, revocation_endpoint.
+- id: rfc9728-protected-resource-metadata
+  conforms: true
+  evidence: >-
+    401 on /mcp carries WWW-Authenticate: Bearer resource_metadata=...; that URL
+    returns 200 naming resource https://app.deepip.ai/mcp and its authorization
+    server.
+- id: rfc7636-pkce
+  conforms: true
+  evidence: code_challenge_methods_supported = [S256] on the MCP authorization server.
+- id: oidc-discovery
+  conforms: true
+  evidence: >-
+    https://auth.deepip.ai/.well-known/openid-configuration returns a complete
+    OpenID Connect Discovery 1.0 document (Auth0 tenant).
+- id: mcp
+  conforms: true
+  version: unknown
+  evidence: >-
+    A remote Model Context Protocol endpoint is served at
+    https://app.deepip.ai/mcp with OAuth authorization. The protocol version
+    could not be read — initialize returns 401 without a bearer token.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors are application/json with a proprietary envelope
+    (code/message/status/requestId/timestamp), not application/problem+json.
+- id: openapi
+  conforms: false
+  evidence: >-
+    No OpenAPI/Swagger document is published on any DeepIP host. Probed
+    /openapi.json, /openapi.yaml, /swagger.json, /v1/openapi.json, /api-docs,
+    /docs and /redoc on www.deepip.ai, app.deepip.ai and docs.deepip.ai.
+- id: asyncapi
+  conforms: false
+  evidence: No event, streaming or webhook surface is published.
+- id: a2a
+  conforms: false
+  evidence: >-
+    No agent card at /.well-known/agent-card.json or /.well-known/agent.json on
+    any host (404 on www.deepip.ai, 401 auth-middleware catch-all on
+    app.deepip.ai — not a card).
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: >-
+    No security.txt served. 404 on www.deepip.ai, 401 on app.deepip.ai, and the
+    200 on trust.deepip.ai is the trust-center SPA HTML shell, not an RFC 9116
+    document.
+- id: content-signals
+  conforms: true
+  evidence: >-
+    app.deepip.ai/robots.txt declares Content-Signal: search=yes, ai-train=no,
+    use=reference (Cloudflare managed). Not present on www.deepip.ai.
+- id: hsts
+  conforms: true
+  evidence: 'strict-transport-security: max-age=31536000; includeSubDomains'
+compliance_program:
+  published: true
+  url: https://trust.deepip.ai/
+  certifications:
+  - SOC 2 Type II
+  - ISO 27001
+  - ISO 42001
+  - GDPR
+  frameworks_claimed:
+  - NIST 800-53 Moderate
+  - NIST Cybersecurity Framework
+  - "\xA7203 StGB (German professional-secrecy statute)"
+  controls_claimed:
+  - TLS 1.2+ in transit
+  - AES-256 at rest
+  - Zero data retention; customer data not used for model training
+  - U.S.-based Microsoft Azure hosting
+  - On-premise deployment option
+  source:
+  - https://trust.deepip.ai/
+  - https://www.deepip.ai/security
+  note: >-
+    ISO 42001 (AI management systems) is the notable one for an AI-native vendor
+    selling into privileged legal work.

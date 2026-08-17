@@ -1,0 +1,89 @@
+generated: '2026-08-17'
+method: probed
+source: >-
+  https://app.deepip.ai/.well-known/oauth-authorization-server,
+  https://app.deepip.ai/.well-known/oauth-protected-resource/mcp,
+  https://auth.deepip.ai/.well-known/openid-configuration
+note: >-
+  DERIVED FROM DISCOVERY METADATA, NOT FROM AN OPENAPI. DeepIP publishes no
+  machine-readable REST contract, so there are no OpenAPI securitySchemes to
+  aggregate. Both profiles below were read verbatim from discovery documents the
+  provider serves anonymously.
+summary:
+  types: [oauth2, openIdConnect]
+  api_key_in: []
+  oauth2_flows: [authorizationCode]
+  pkce_required: true
+  bearer_token: true
+schemes:
+- name: mcp-oauth2
+  type: oauth2
+  applies_to: https://app.deepip.ai/mcp
+  source: well-known/deepip-app-oauth-authorization-server.json
+  issuer: https://app.deepip.ai/
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://app.deepip.ai/mcp/authorize
+    tokenUrl: https://app.deepip.ai/mcp/token
+    revocationUrl: https://app.deepip.ai/mcp/revoke
+    scopes: {}
+    scopes_note: >-
+      The authorization-server metadata advertises no scopes_supported array, so
+      the MCP scope vocabulary is not publicly declared.
+  pkce:
+    required: true
+    code_challenge_methods_supported: [S256]
+  token_endpoint_auth_methods_supported: [client_secret_post, none]
+  client_registration:
+    dynamic_client_registration: false
+    client_id_metadata_document_supported: true
+  presentation:
+    header: Authorization
+    scheme: Bearer
+    challenge: >-
+      WWW-Authenticate: Bearer resource_metadata="https://app.deepip.ai/.well-known/oauth-protected-resource/mcp"
+    unauthenticated_response: >-
+      401 {"code":"MISSING_CREDENTIALS","message":"Bearer authentication token is
+      required","requestId":"...","status":"error","timestamp":"..."}
+- name: deepip-auth0-oidc
+  type: openIdConnect
+  applies_to: https://app.deepip.ai (end-user application sign-in)
+  openIdConnectUrl: https://auth.deepip.ai/.well-known/openid-configuration
+  source: well-known/deepip-auth-openid-configuration.json
+  provider: Auth0 tenant on auth.deepip.ai
+  issuer: https://auth.deepip.ai/
+  endpoints:
+    authorization: https://auth.deepip.ai/authorize
+    token: https://auth.deepip.ai/oauth/token
+    userinfo: https://auth.deepip.ai/userinfo
+    jwks: https://auth.deepip.ai/.well-known/jwks.json
+    registration: https://auth.deepip.ai/oidc/register
+    revocation: https://auth.deepip.ai/oauth/revoke
+    end_session: https://auth.deepip.ai/oidc/logout
+    device_authorization: https://auth.deepip.ai/oauth/device/code
+    mfa_challenge: https://auth.deepip.ai/mfa/challenge
+  grant_types_supported:
+  - client_credentials
+  - authorization_code
+  - refresh_token
+  - password
+  - implicit
+  - urn:ietf:params:oauth:grant-type:device_code
+  - urn:ietf:params:oauth:grant-type:token-exchange
+  - urn:ietf:params:oauth:grant-type:jwt-bearer
+  code_challenge_methods_supported: [S256, plain]
+  id_token_signing_alg_values_supported: [HS256, RS256, PS256]
+  backchannel_logout_supported: true
+  mfa: >-
+    An mfa_challenge endpoint and MFA grant types (mfa-oob, mfa-otp,
+    mfa-recovery-code) are advertised, so multi-factor is available on the tenant.
+gaps:
+- >-
+  No API-key mechanism is documented publicly. DeepIP's security page advertises
+  "a comprehensive, well-documented API" for custom integrations, but the
+  reference lives at docs.deepip.ai behind a ReadMe login (redirects to
+  dash.readme.com/to/getdavinci), so its credential model could not be read.
+- >-
+  The MCP authorization server declares no scopes_supported, so the permission
+  granularity an agent is consenting to is not knowable before the consent
+  screen.

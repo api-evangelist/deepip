@@ -10,31 +10,35 @@ description: >-
   into Microsoft Word, IP management systems, and the web browser, and works across
   chemistry, biology, software, mechanical, and electronic domains and multiple
   patent jurisdictions (USPTO, EPO, PCT, UKIPO, CNIPA, KIPO, and others). The
-  company operates a zero-data-retention policy on U.S.-based Microsoft Azure and
-  holds SOC 2 Type II, ISO 27001, ISO 42001, and GDPR compliance. DeepIP is backed
-  by Balderton Capital.
+  company operates a zero-data-retention policy on Microsoft Azure across separate
+  EU and US stacks, and holds SOC 2 Type II, ISO 27001, ISO 42001, HIPAA, and GDPR
+  compliance. DeepIP runs a remote, OAuth-protected Model Context Protocol server
+  at app.deepip.ai/mcp; its REST API reference sits behind a ReadMe login. DeepIP
+  is backed by Balderton Capital.
 url: https://raw.githubusercontent.com/api-evangelist/deepip/refs/heads/main/apis.yml
 accessModel:
-  pricing: unknown
-  onboarding: unknown
-  trial: false
+  pricing: contact-sales
+  onboarding: trial
+  trial: true
   try_now: false
   public: false
-  label: Unknown
-  confidence: low
-  source: []
-  generated: '2026-07-22'
-  method: derived
+  label: Sales-gated with self-service trial
+  confidence: medium
+  source:
+  - https://www.deepip.ai/trial
+  - https://www.deepip.ai/self-service-payment
+  generated: '2026-08-17'
+  method: searched
 image: https://cdn.prod.website-files.com/655793df06a490569c80c9da/656dfeb7474277cde1d95475_Webclip.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - balderton-capital
-x-tier: profile
-x-tier-reason: enriched-no-public-api
+x-tier: enriched
+x-tier-reason: has-public-api
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-18'
+modified: '2026-08-17'
 tags:
 - Company
 - Intellectual Property
@@ -45,7 +49,42 @@ tags:
 - IP Management
 - Document Automation
 - Security
-apis: []
+- MCP
+- Agents
+- Prior Art Search
+apis:
+- name: DeepIP MCP Server
+  description: >-
+    A remote Model Context Protocol server operated by DeepIP at
+    https://app.deepip.ai/mcp, letting an MCP-capable agent act inside a DeepIP
+    tenant on behalf of a signed-in user. It is protected by OAuth 2.0
+    authorization-code with PKCE (S256) and advertises itself through RFC 9728
+    protected-resource metadata and RFC 8414 authorization-server metadata, both
+    of which resolve anonymously. The tool set is not public — tools/list and
+    initialize return 401 MISSING_CREDENTIALS without a bearer token — and DeepIP
+    documents the server nowhere on its public site; it was found by probing the
+    application host. The endpoint is recorded because it was verified live, not
+    because it is advertised.
+  humanURL: https://docs.deepip.ai/
+  baseURL: https://app.deepip.ai/mcp
+  tags:
+  - MCP
+  - Agents
+  - Patents
+  - Intellectual Property
+  properties:
+  - type: MCPServer
+    url: mcp/deepip-mcp.yml
+  - type: Authentication
+    url: authentication/deepip-authentication.yml
+  - type: OAuthScopes
+    url: scopes/deepip-scopes.yml
+  - type: ErrorCatalog
+    url: errors/deepip-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/deepip-rate-limits.yml
+  - type: Conventions
+    url: conventions/deepip-conventions.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -56,10 +95,14 @@ common:
   url: https://www.deepip.ai/
 - type: Blog
   url: https://www.deepip.ai/blog
+- type: Support
+  url: https://www.deepip.ai/contact
 - type: TrustCenter
-  url: https://trust.deepip.ai/
+  url: security/deepip-trust-center.yml
 - type: Compliance
   url: https://trust.deepip.ai/
+- type: Conformance
+  url: conformance/deepip-conformance.yml
 - type: PrivacyPolicy
   url: https://www.deepip.ai/privacy-policy
 - type: TermsOfService
@@ -68,12 +111,52 @@ common:
   url: https://www.deepip.ai/trial
 - type: GitHubOrganization
   url: https://github.com/deepip-ai
-- type: DomainSecurity
-  url: security/deepip-domain-security.yml
+- type: StatusPage
+  url: https://status.deepip.ai
+- type: Lifecycle
+  url: lifecycle/deepip-lifecycle.yml
+- type: MCPServer
+  url: mcp/deepip-mcp.yml
+- type: Authentication
+  url: authentication/deepip-authentication.yml
+- type: OAuthScopes
+  url: scopes/deepip-scopes.yml
+- type: ErrorCatalog
+  url: errors/deepip-problem-types.yml
+- type: Conventions
+  url: conventions/deepip-conventions.yml
+- type: RateLimits
+  url: rate-limits/deepip-rate-limits.yml
+- type: Plans
+  url: plans/deepip-plans-pricing.yml
+- type: ContentSignal
+  url: well-known/deepip-app-robots.txt
 - type: WellKnown
   url: well-known/deepip-well-known.yml
+- type: LLMsTxt
+  url: llms/deepip-llms.txt
+- type: DomainSecurity
+  url: security/deepip-domain-security.yml
+x-notes:
+  api_reference: >-
+    DeepIP's API reference is a ReadMe project at https://docs.deepip.ai/ (CNAME
+    getdavinci-f5dd75ed.readmessl.com — "getdavinci" is DeepIP's former product
+    name, DaVinci). Every path redirects to https://dash.readme.com/to/getdavinci,
+    a ReadMe login, and robots.txt there is Disallow: /. No Documentation,
+    APIReference or DeveloperPortal pointer is emitted, because nothing on that
+    host is publicly readable. DeepIP's own security page advertises "a
+    comprehensive, well-documented API" but publishes no URL for it.
+  agent_skills: >-
+    The DeepIP GitHub organization publishes one public repository,
+    deepip-ai/lenny-skills — 86 Agent Skills for Claude Code drawn from Lenny's
+    Podcast. They are real, first-party Agent Skills but they teach product
+    management, not DeepIP's API, so no AgentSkill pointer is emitted for them.
+  no_agent_card: >-
+    app.deepip.ai answers 401 for every unmapped /.well-known/* path, including
+    agent-card.json and agent.json. That is the MCP bearer-auth middleware, not an
+    A2A card, and is recorded as a miss. www.deepip.ai returns 404 on both paths.
 x-enrichment:
-  date: '2026-07-19'
-  status: backfilled
+  date: '2026-08-17'
+  status: enriched
+  artifacts_added: 14
   pass: local-v1
-  note: backfilled from .gitignore signal + verified work evidence

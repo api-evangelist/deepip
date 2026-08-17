@@ -1,26 +1,46 @@
-generated: '2026-07-18'
+generated: '2026-08-17'
 method: searched
 probe: true
 source: https://trust.deepip.ai/
 url: https://trust.deepip.ai/
+platform: Vanta
 certifications:
 - SOC 2 Type II
 - ISO 27001
 - ISO 42001
+- HIPAA
 - GDPR
-hosting: U.S.-based Microsoft Azure
-data_retention: Zero data retention; customer data is not stored or used for model retraining
+frameworks:
+- name: "\xA7203 StGB"
+  note: German criminal-code professional-secrecy obligation, relevant to patent attorneys.
+- name: NIST 800-53 Moderate
+  note: Security policies stated to adhere to this baseline.
+- name: NIST Cybersecurity Framework (CSF)
+controls:
+  encryption_in_transit: TLS 1.2+
+  encryption_at_rest: AES-256
+  data_retention: >-
+    Zero data retention. Customer data is not stored by DeepIP's model providers
+    and is not used for training or fine-tuning; Microsoft's abuse monitoring is
+    disabled under DeepIP's Azure agreement.
+  hosting: Microsoft Azure, U.S.-based (EU and US regional stacks per status page)
+  tenancy: Complete segregation of users and organizational data
+  deployment_options: [cloud, on-premise]
 evidence:
 - source: https://trust.deepip.ai/
-  keywords:
-  - soc 2 type ii
-  - iso 27001
-  - trust center
-  - gdpr
-- source: https://www.deepip.ai/
-  keywords:
-  - iso 27001
-  - iso 42001
-  - soc 2 type ii
-  - gdpr
-  - zero data retention
+  status: 200
+  keywords: [soc 2 type ii, iso 27001, trust center, gdpr]
+- source: https://www.deepip.ai/security
+  status: 200
+  keywords: [iso 42001, iso 27001, soc 2 type ii, gdpr, "\xA7203 stgb", hipaa, nist
+      800-53, zero data retention]
+  quote: >-
+    "We also adhere to strict industry standards, including certifications like
+    ISO 27001, SOC 2 Type II, and HIPAA."
+notes: >-
+  Superset of an automated probe pass that had reduced this file to four
+  certifications sourced only from the marketing security page. HIPAA is a real
+  published claim (verified in prose on /security); ISO 42001 and §203 StGB are
+  named in the certification band on the same page; the trust center itself is a
+  Vanta-hosted single-page app at trust.deepip.ai, which serves an HTML shell for
+  every path including /.well-known/security.txt.

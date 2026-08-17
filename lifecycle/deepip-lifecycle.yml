@@ -1,0 +1,70 @@
+generated: '2026-08-17'
+method: probed
+source: https://status.deepip.ai/api/v2/summary.json
+status_page: https://status.deepip.ai
+status_page_platform: Atlassian Statuspage
+status_page_api:
+  summary: https://status.deepip.ai/api/v2/summary.json
+  status: https://status.deepip.ai/api/v2/status.json
+  components: https://status.deepip.ai/api/v2/components.json
+  incidents: https://status.deepip.ai/api/v2/incidents.json
+  feeds:
+  - https://status.deepip.ai/history.atom
+  - https://status.deepip.ai/history.rss
+  note: >-
+    A machine-readable status surface — the Statuspage v2 JSON API answers
+    anonymously, so an agent can poll component health without scraping.
+components:
+  regions:
+  - name: Europe
+    components: [Front-end, Back-end, Add-in]
+  - name: US
+    components: [Front-end, Back-end, Add-in]
+  note: >-
+    Two independent regional stacks (EU and US), each with a front-end, a
+    back-end and the Microsoft Word add-in as separately-tracked components.
+incident_history:
+  observed_incidents: 15
+  window: 2024-02 (page created) to 2026-08
+  recent:
+  - date: '2026-07-09'
+    impact: major
+    name: Office action - EPO auto import
+  - date: '2026-04-27'
+    impact: critical
+    name: '[EU] Service down'
+  - date: '2026-03-10'
+    impact: major
+    name: '[US] Chat is not available'
+  - date: '2025-11-25'
+    impact: minor
+    name: USPTO auto download feature issue
+  - date: '2025-11-18'
+    impact: critical
+    name: Third party provider disruption, Cloudflare
+  - date: '2025-10-29'
+    impact: critical
+    name: Azure incident affecting add-in availability
+versioning:
+  scheme: unknown
+  note: >-
+    No public versioning policy. The MCP endpoint is unversioned
+    (https://app.deepip.ai/mcp) and negotiates a protocol version per session in
+    the MCP initialize handshake rather than in the URL. The REST API reference
+    at docs.deepip.ai is behind a ReadMe login, so any URI/header versioning
+    scheme it documents could not be read.
+deprecation:
+  policy_url: null
+  sunset_header: unknown
+  note: >-
+    No published deprecation or sunset policy was found on deepip.ai, the status
+    page, or the GitHub organization. Absence recorded, not inferred.
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    No public SLA or uptime commitment is published; the status page shows
+    historical uptime but states no target. Availability terms are likely inside
+    the enterprise contract (deepip.ai/terms-and-conditions covers the service
+    generally).
+deprecated_operations: []

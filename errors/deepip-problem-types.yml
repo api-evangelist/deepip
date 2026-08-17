@@ -1,0 +1,46 @@
+generated: '2026-08-17'
+method: probed
+source: live unauthenticated responses from https://app.deepip.ai/
+format: proprietary-json
+format_note: >-
+  NOT RFC 9457. Responses are application/json (not application/problem+json) and
+  carry a provider-specific envelope: code, message, status, requestId, timestamp.
+envelope:
+  content_type: application/json; charset=utf-8
+  fields: [code, message, status, requestId, timestamp]
+  code_style: SCREAMING_SNAKE_CASE
+  correlation_field: requestId
+problems:
+- status: 401
+  code: MISSING_CREDENTIALS
+  title: Bearer authentication token is required
+  observed_on:
+  - POST https://app.deepip.ai/mcp
+  - GET https://app.deepip.ai/.well-known/openid-configuration
+  - GET https://app.deepip.ai/.well-known/agent-card.json
+  remediation: >-
+    Complete the OAuth 2.0 authorization-code + PKCE flow advertised at
+    https://app.deepip.ai/.well-known/oauth-authorization-server and present the
+    access token as an Authorization: Bearer header.
+  response_headers:
+    WWW-Authenticate: Bearer resource_metadata="https://app.deepip.ai/.well-known/oauth-protected-resource/mcp"
+  example: >-
+    {"code":"MISSING_CREDENTIALS","message":"Bearer authentication token is
+    required","requestId":"cmsxdbqzx01v801pdccbu3t93","status":"error","timestamp":"2026-08-17T15:08:02.541Z"}
+- status: 401
+  code: null
+  title: Unauthorized
+  observed_on:
+  - GET https://app.deepip.ai/api/openapi.json
+  - GET https://app.deepip.ai/api/docs
+  - GET https://app.deepip.ai/api/v1/openapi.json
+  remediation: Authenticate; see above.
+  note: >-
+    A DIFFERENT, bare text/plain "Unauthorized" body with no envelope and no
+    content type — the /api/* tree and the /mcp tree do not share an error
+    format. Two error contracts on one host.
+coverage_note: >-
+  Only anonymously-reachable errors could be catalogued. DeepIP publishes no
+  OpenAPI to derive 4xx/5xx responses from and no public error reference; the API
+  reference at docs.deepip.ai is behind a ReadMe login. This catalogue is
+  therefore a floor, not the provider's full error surface.

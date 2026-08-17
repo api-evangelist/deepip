@@ -1,0 +1,109 @@
+generated: '2026-08-17'
+method: probed
+source: >-
+  https://auth.deepip.ai/.well-known/openid-configuration,
+  https://app.deepip.ai/.well-known/oauth-authorization-server
+docs: null
+docs_note: >-
+  DeepIP publishes no scopes/permissions reference page. Both scope facts below
+  were read from discovery metadata the provider serves anonymously.
+schemes:
+- name: deepip-auth0-oidc
+  source: well-known/deepip-auth-openid-configuration.json
+  issuer: https://auth.deepip.ai/
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.deepip.ai/authorize
+    tokenUrl: https://auth.deepip.ai/oauth/token
+- name: mcp-oauth2
+  source: well-known/deepip-app-oauth-authorization-server.json
+  issuer: https://app.deepip.ai/
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://app.deepip.ai/mcp/authorize
+    tokenUrl: https://app.deepip.ai/mcp/token
+  scopes_declared: false
+  note: >-
+    The MCP authorization server advertises NO scopes_supported array. An agent
+    connecting to https://app.deepip.ai/mcp therefore cannot discover, before the
+    consent screen, what permissions it is being granted over a patent portfolio.
+    This is a real gap, recorded rather than filled in.
+scopes:
+- scope: openid
+  description: Standard OIDC — issue an ID token for the authenticated user.
+  flows: [authorizationCode]
+  sources: [well-known/deepip-auth-openid-configuration.json]
+  kind: identity
+- scope: profile
+  description: Standard OIDC — basic profile claims.
+  flows: [authorizationCode]
+  sources: [well-known/deepip-auth-openid-configuration.json]
+  kind: identity
+- scope: email
+  description: Standard OIDC — email address claim.
+  flows: [authorizationCode]
+  sources: [well-known/deepip-auth-openid-configuration.json]
+  kind: identity
+- scope: email_verified
+  description: Standard OIDC — whether the email address is verified.
+  flows: [authorizationCode]
+  sources: [well-known/deepip-auth-openid-configuration.json]
+  kind: identity
+- scope: offline_access
+  description: Issue a refresh token for long-lived access.
+  flows: [authorizationCode]
+  sources: [well-known/deepip-auth-openid-configuration.json]
+  kind: identity
+- scope: name
+  description: Standard OIDC claim scope — full name.
+  flows: [authorizationCode]
+  sources: [well-known/deepip-auth-openid-configuration.json]
+  kind: identity
+- scope: given_name
+  description: Standard OIDC claim scope — given name.
+  flows: [authorizationCode]
+  sources: [well-known/deepip-auth-openid-configuration.json]
+  kind: identity
+- scope: family_name
+  description: Standard OIDC claim scope — family name.
+  flows: [authorizationCode]
+  sources: [well-known/deepip-auth-openid-configuration.json]
+  kind: identity
+- scope: nickname
+  description: Standard OIDC claim scope — nickname.
+  flows: [authorizationCode]
+  sources: [well-known/deepip-auth-openid-configuration.json]
+  kind: identity
+- scope: picture
+  description: Standard OIDC claim scope — profile picture URL.
+  flows: [authorizationCode]
+  sources: [well-known/deepip-auth-openid-configuration.json]
+  kind: identity
+- scope: created_at
+  description: Auth0 claim scope — account creation timestamp.
+  flows: [authorizationCode]
+  sources: [well-known/deepip-auth-openid-configuration.json]
+  kind: identity
+- scope: identities
+  description: Auth0 claim scope — linked identity providers.
+  flows: [authorizationCode]
+  sources: [well-known/deepip-auth-openid-configuration.json]
+  kind: identity
+- scope: phone
+  description: Standard OIDC claim scope — phone number.
+  flows: [authorizationCode]
+  sources: [well-known/deepip-auth-openid-configuration.json]
+  kind: identity
+- scope: address
+  description: Standard OIDC claim scope — postal address.
+  flows: [authorizationCode]
+  sources: [well-known/deepip-auth-openid-configuration.json]
+  kind: identity
+summary:
+  total_scopes: 14
+  identity_scopes: 14
+  resource_scopes: 0
+  note: >-
+    Every published scope is an OIDC identity/claim scope from the Auth0 tenant.
+    DeepIP publishes ZERO resource scopes — nothing that describes read or write
+    access to inventions, drafts, office actions, or portfolios.

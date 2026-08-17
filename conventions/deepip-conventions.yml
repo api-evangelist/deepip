@@ -1,0 +1,117 @@
+generated: '2026-08-17'
+method: probed
+source: >-
+  observed on live unauthenticated responses from https://app.deepip.ai/ +
+  https://app.deepip.ai/.well-known/* discovery metadata
+note: >-
+  Derived from what the edge actually returns, not from documentation. DeepIP's
+  API reference is behind a ReadMe login, so anything not observable anonymously
+  is recorded as unknown rather than guessed.
+authentication:
+  style: OAuth 2.0 bearer token
+  header: 'Authorization: Bearer <token>'
+  challenge_header: WWW-Authenticate
+  challenge_form: Bearer resource_metadata="<RFC 9728 metadata URL>"
+  discovery: https://app.deepip.ai/.well-known/oauth-protected-resource/mcp
+  see_also: authentication/deepip-authentication.yml
+error_envelope:
+  format: proprietary JSON (not RFC 9457 problem+json)
+  content_type: application/json; charset=utf-8
+  fields:
+  - name: code
+    type: string
+    example: MISSING_CREDENTIALS
+    note: machine-readable error code, SCREAMING_SNAKE_CASE
+  - name: message
+    type: string
+    example: Bearer authentication token is required
+    note: human-readable message
+  - name: status
+    type: string
+    example: error
+  - name: requestId
+    type: string
+    example: cmsxdbqzx01v801pdccbu3t93
+    note: CUID2-style correlation id, unique per response
+  - name: timestamp
+    type: string
+    format: date-time (ISO 8601, UTC)
+    example: '2026-08-17T15:08:02.541Z'
+  observed_example: >-
+    {"code":"MISSING_CREDENTIALS","message":"Bearer authentication token is
+    required","requestId":"...","status":"error","timestamp":"..."}
+  see_also: errors/deepip-problem-types.yml
+request_tracing:
+  mechanism: requestId in the error body
+  response_header: none observed
+  note: >-
+    A correlation id is returned in the error envelope but NOT as a response
+    header, so a client cannot correlate a SUCCESSFUL call with a support ticket
+    — only a failing one.
+rate_limit_signaling:
+  headers: []
+  note: >-
+    No RateLimit-*, X-RateLimit-*, or Retry-After headers were observed on any
+    anonymous response, including a 12-request burst against the
+    authorization-server metadata document (all 200). See
+    rate-limits/deepip-rate-limits.yml.
+idempotency:
+  supported: unknown
+  header: null
+  note: >-
+    No idempotency contract is observable anonymously and none is documented
+    publicly. NOT claimed — no Idempotency pointer is emitted for this provider.
+pagination:
+  style: unknown
+  note: Not observable without an authenticated session; no public documentation.
+versioning:
+  style: unversioned path (MCP), unknown for REST
+  note: >-
+    https://app.deepip.ai/mcp carries no version segment; MCP protocol version is
+    negotiated per session in the initialize handshake. See
+    lifecycle/deepip-lifecycle.yml.
+transport_security:
+  https_only: true
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_include_subdomains: true
+  edge: Cloudflare
+  headers_observed:
+  - strict-transport-security
+  - content-security-policy
+  - cross-origin-embedder-policy: require-corp
+  - cross-origin-opener-policy: same-origin
+  - cross-origin-resource-policy: same-origin
+  - x-content-type-options: nosniff
+  - x-frame-options: SAMEORIGIN
+  - referrer-policy: strict-origin-when-cross-origin
+  - permissions-policy
+  - origin-agent-cluster
+  note: >-
+    The application host ships an unusually complete browser hardening header
+    set, including a strict CSP with an explicit allow-list and a
+    Permissions-Policy that disables camera, geolocation, USB and payment.
+cors:
+  access_control_allow_origin: '*'
+  note: >-
+    Observed on the 401 responses; the surface is bearer-authenticated rather
+    than origin-restricted.
+agent_access_posture:
+  content_signals: search=yes, ai-train=no, use=reference
+  disallowed_crawlers:
+  - Amazonbot
+  - Applebot-Extended
+  - Bytespider
+  - CCBot
+  - ClaudeBot
+  - CloudflareBrowserRenderingCrawler
+  - GPTBot
+  - Google-Extended
+  - meta-externalagent
+  source: well-known/deepip-app-robots.txt
+  note: >-
+    A deliberate split posture: the application host blocks general-purpose AI
+    crawlers at robots.txt while simultaneously operating an authenticated MCP
+    server for agents acting on behalf of a signed-in customer. Crawl is refused;
+    delegated, consented agent access is offered. The marketing host
+    (www.deepip.ai) carries neither restriction.

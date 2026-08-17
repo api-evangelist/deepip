@@ -1,0 +1,27 @@
+generated: '2026-08-17'
+method: searched
+source: >-
+  https://www.deepip.ai/self-service-payment, https://www.deepip.ai/trial,
+  https://www.deepip.ai/contact
+plan_count: 0
+plans: []
+pricing_page: null
+notes: >-
+  DeepIP publishes no prices. https://www.deepip.ai/pricing returns 404. The
+  self-service flow at https://www.deepip.ai/self-service-payment collects a card
+  to unlock a trial of the Patent Drafting and Office Actions modules ("no
+  charges before it ends", "cancel anytime in one click") but names no plan, no
+  amount, and no billing period. Every other route is "Request a demo" or "Talk
+  to sales". An ROI calculator (https://www.deepip.ai/calculator-roi) takes an
+  hourly rate and an annual draft volume to estimate savings — it does not
+  disclose what DeepIP costs. Enterprise contact-sales only; recorded as a real
+  zero, not an omission.
+evidence:
+- url: https://www.deepip.ai/pricing
+  status: 404
+- url: https://www.deepip.ai/self-service-payment
+  status: 200
+  finding: trial card-capture flow, no prices listed
+- url: https://www.deepip.ai/trial
+  status: 200
+  finding: demo request / trial signup, no prices listed
