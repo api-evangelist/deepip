@@ -11,6 +11,11 @@ deployment:
   endpoint: https://app.deepip.ai/mcp
   auth: oauth
   verified: probed
+  probe_prior: (never probed)
+  probe: gated
+  probe_why: RFC 9728 challenge on the MCP path only
+  checked: '2026-09-11'
+  source: claimed-backlog re-probe 2026-09-11
 authorization:
   spec: RFC 9728 (protected resource metadata) + RFC 8414 (authorization server metadata)
   resource: https://app.deepip.ai/mcp
@@ -29,19 +34,14 @@ authorization:
   - none
   client_id_metadata_document_supported: true
   dynamic_client_registration: false
-  note: >-
-    No registration_endpoint is advertised; the server instead declares
-    client_id_metadata_document_supported, so clients identify themselves with a
-    client-ID metadata document URL rather than by dynamic registration.
+  note: No registration_endpoint is advertised; the server instead declares client_id_metadata_document_supported,
+    so clients identify themselves with a client-ID metadata document URL rather than by dynamic registration.
 tools: []
-tools_note: >-
-  UNKNOWN — not fabricated. tools/list and initialize both return HTTP 401
-  {"code":"MISSING_CREDENTIALS"} without a bearer token, so the live tool set and
-  its inputSchemas require an authenticated OAuth introspection against a DeepIP
-  customer tenant. DeepIP publishes no llms.txt and no public tool catalogue, and
-  its API reference (docs.deepip.ai) is behind a ReadMe login, so there is no
-  second-hand list to fall back on. Recording zero tools is the honest result;
-  any tool names here would be invented.
+tools_note: UNKNOWN — not fabricated. tools/list and initialize both return HTTP 401 {"code":"MISSING_CREDENTIALS"}
+  without a bearer token, so the live tool set and its inputSchemas require an authenticated OAuth introspection
+  against a DeepIP customer tenant. DeepIP publishes no llms.txt and no public tool catalogue, and its
+  API reference (docs.deepip.ai) is behind a ReadMe login, so there is no second-hand list to fall back
+  on. Recording zero tools is the honest result; any tool names here would be invented.
 x-evidence:
 - fetched: '2026-08-17'
   url: https://app.deepip.ai/.well-known/oauth-protected-resource/mcp
@@ -61,17 +61,12 @@ x-evidence:
 - fetched: '2026-08-17'
   url: https://app.deepip.ai/.well-known/agent-card.json
   http_status: 401
-  note: >-
-    The same bearer challenge answers every unmapped /.well-known/* path on this
-    host. It is the MCP auth middleware, not an A2A agent card — no a2a/
-    artifact is written.
-notes: >-
-  This is an undocumented-but-live agent surface. DeepIP's public security page
-  says "Build custom integrations with a comprehensive, well-documented API" but
-  publishes no URL for it, and nothing on deepip.ai, in its GitHub organization,
-  or in the public record mentions MCP. The endpoint was found by probing the
-  application host: the 401 on app.deepip.ai carried an RFC 9728
-  WWW-Authenticate resource_metadata pointer, and that metadata document resolves
-  anonymously to the MCP resource and its authorization server. The server is
-  reachable by any MCP client that can complete the OAuth authorization-code +
-  PKCE flow with a DeepIP account — it is a remote endpoint, not a stdio package.
+  note: The same bearer challenge answers every unmapped /.well-known/* path on this host. It is the MCP
+    auth middleware, not an A2A agent card — no a2a/ artifact is written.
+notes: 'This is an undocumented-but-live agent surface. DeepIP''s public security page says "Build custom
+  integrations with a comprehensive, well-documented API" but publishes no URL for it, and nothing on
+  deepip.ai, in its GitHub organization, or in the public record mentions MCP. The endpoint was found
+  by probing the application host: the 401 on app.deepip.ai carried an RFC 9728 WWW-Authenticate resource_metadata
+  pointer, and that metadata document resolves anonymously to the MCP resource and its authorization server.
+  The server is reachable by any MCP client that can complete the OAuth authorization-code + PKCE flow
+  with a DeepIP account — it is a remote endpoint, not a stdio package.'
