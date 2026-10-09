@@ -70,3 +70,14 @@ notes: 'This is an undocumented-but-live agent surface. DeepIP''s public securit
   pointer, and that metadata document resolves anonymously to the MCP resource and its authorization server.
   The server is reachable by any MCP client that can complete the OAuth authorization-code + PKCE flow
   with a DeepIP account — it is a remote endpoint, not a stdio package.'
+rfc9728:
+  endpoint: https://app.deepip.ai/mcp
+  metadata_url: https://app.deepip.ai/.well-known/oauth-protected-resource/mcp
+  discovered_via: WWW-Authenticate resource_metadata on an anonymous POST initialize
+  fetched: '2026-09-25'
+  http_status: 200
+  content_type: application/json
+  document:
+    resource: https://app.deepip.ai/mcp
+    authorization_servers:
+    - https://app.deepip.ai/
