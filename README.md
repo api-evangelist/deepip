@@ -1,4 +1,4 @@
-# deepip
+# DeepIP
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,6 +64,119 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-deepip is a company surfaced as a portfolio company of balderton-capital and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+DeepIP is an AI-powered patent intelligence platform that streamlines the full patent lifecycle for intellectual-property professionals, automating repetitive work while keeping a human in the loop. It supports invention capture, patentability assessment, patent drafting and drawings generation, AI review, prosecution support, freedom-to-operate (FTO) and invalidity searches, portfolio and landscape intelligence, and agentic prior-art search. DeepIP embeds directly into Microsoft Word, IP management systems, and the web browser, and works across chemistry, biology, software, mechanical, and electronic domains and multiple patent jurisdictions (USPTO, EPO, PCT, UKIPO, CNIPA, KIPO, and others). The company operates a zero-data-retention policy on Microsoft Azure across separate EU and US stacks, and holds SOC 2 Type II, ISO 27001, ISO 42001, HIPAA, and GDPR compliance. DeepIP runs a remote, OAuth-protected Model Context Protocol server at app.deepip.ai/mcp; its REST API reference sits behind a ReadMe login. DeepIP is backed by Balderton Capital.
 
-Backed by: balderton-capital — https://www.deepip.ai/
+**Areas:** Company · Intellectual Property · Patents · Legal Tech · Artificial Intelligence · Patent Drafting · IP Management · Document Automation · Security · MCP · Agents · Prior Art Search
+
+## DeepIP on APIs.io
+
+Everything profiled for DeepIP is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/deepip/](https://apis.io/providers/deepip/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [DeepIP MCP Server](https://apis.io/apis/deepip/deepip-mcp-server/) — A remote Model Context Protocol server operated by DeepIP at https://app.deepip.ai/mcp, letting an MCP-capable agent act inside a DeepIP tenant on behalf of…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [deepip](https://apis.io/servers/deepip/deepip/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Deepip Authentication](https://apis.io/security/deepip/deepip-authentication/)
+- [Deepip Domain Security](https://apis.io/security/deepip/deepip-domain-security/)
+- [Deepip Trust Center](https://apis.io/security/deepip/deepip-trust-center/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Deepip Scopes](https://apis.io/scopes/deepip/deepip-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Deepip Plans Pricing](https://apis.io/plans/deepip/deepip-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Deepip Rate Limits](https://apis.io/rate-limits/deepip/deepip-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.deepip.ai/)
+- [Sign up](https://www.deepip.ai/trial)
+- [Support](https://www.deepip.ai/contact)
+- [Blog](https://www.deepip.ai/blog)
+- [Compliance](https://trust.deepip.ai/)
+- [Terms of service](https://www.deepip.ai/terms-and-conditions)
+- [Privacy policy](https://www.deepip.ai/privacy-policy)
+- [GitHub](https://github.com/deepip-ai)
+- [Status](https://status.deepip.ai)
+
+## API Evangelist rating
+
+**Kin Score 28.4** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 19.0 |
+| Access clarity | 50.0 |
+
+**Agent readiness 30.6** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | yes |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 36.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/deepip/](https://apis.io/providers/deepip/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for DeepIP: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/deepip/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
